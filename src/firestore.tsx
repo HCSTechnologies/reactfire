@@ -4,6 +4,7 @@ import { preloadObservable, ObservableStatus } from './useObservable';
 import { first } from 'rxjs/operators';
 
 import { Query as FirestoreQuery, QuerySnapshot, DocumentReference, queryEqual, DocumentData, DocumentSnapshot } from 'firebase/firestore';
+import { Observable } from 'rxjs';
 
 // Since we're side-effect free, we need to ensure our observableId cache is global
 const cachedQueries: Array<FirestoreQuery<any>> = (globalThis as any as ReactFireGlobals)._reactFireFirestoreQueryCache || [];
@@ -63,9 +64,9 @@ export function useFirestoreDocData<T = unknown>(ref: DocumentReference<T>, opti
   const idField = options ? checkIdField(options) : 'NO_ID_FIELD';
 
   const observableId = `firestore:docData:${ref.firestore.app.name}:${ref.path}:idField=${idField}`;
-  const observable = docData(ref, { idField });
+  const observable = docData(ref, { idField }) as Observable<T>;
 
-  return useObservable(observableId, observable, options);
+  return useObservable<T>(observableId, observable, options);
 }
 
 /**
@@ -75,9 +76,9 @@ export function useFirestoreDocDataOnce<T = unknown>(ref: DocumentReference<T>, 
   const idField = options ? checkIdField(options) : 'NO_ID_FIELD';
 
   const observableId = `firestore:docDataOnce:${ref.firestore.app.name}:${ref.path}:idField=${idField}`;
-  const observable$ = docData(ref, { idField }).pipe(first());
+  const observable$ = docData(ref, { idField }).pipe(first()) as Observable<T>;
 
-  return useObservable(observableId, observable$, options);
+  return useObservable<T>(observableId, observable$, options);
 }
 
 /**
