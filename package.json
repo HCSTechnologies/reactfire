@@ -48,12 +48,15 @@
     "singleQuote": true,
     "printWidth": 160
   },
-  "name": "reactfire",
+  "name": "@hcstechnologies/reactfire",
   "author": "jhuleatt",
   "description": "Firebase library for React",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/FirebaseExtended/reactfire.git"
+    "url": "git+ssh://hodeyp@github.com/HCSTechnologies/reactfire.git"
   },
   "bugs": {
     "url": "https://github.com/Firebase/reactfire/issues"
