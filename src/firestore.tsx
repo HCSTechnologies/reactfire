@@ -65,6 +65,8 @@ export function useFirestoreDocData<T = unknown>(ref: DocumentReference<T>, opti
   const observableId = `firestore:docData:${ref.firestore.app.name}:${ref.path}:idField=${idField}`;
   const observable = docData(ref, { idField });
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   return useObservable(observableId, observable, options);
 }
 
@@ -77,7 +79,10 @@ export function useFirestoreDocDataOnce<T = unknown>(ref: DocumentReference<T>, 
   const observableId = `firestore:docDataOnce:${ref.firestore.app.name}:${ref.path}:idField=${idField}`;
   const observable$ = docData(ref, { idField }).pipe(first());
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   return useObservable(observableId, observable$, options);
+
 }
 
 /**

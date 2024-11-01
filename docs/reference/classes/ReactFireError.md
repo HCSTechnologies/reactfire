@@ -33,7 +33,7 @@
 
 ### constructor
 
-• **new ReactFireError**(`code`, `message`, `customData?`)
+• **new ReactFireError**(`code`, `message`, `customData?`): [`ReactFireError`](ReactFireError.md)
 
 #### Parameters
 
@@ -41,7 +41,11 @@
 | :------ | :------ |
 | `code` | `string` |
 | `message` | `string` |
-| `customData?` | `Record`<`string`, `unknown`\> |
+| `customData?` | `Record`\<`string`, `unknown`\> |
+
+#### Returns
+
+[`ReactFireError`](ReactFireError.md)
 
 #### Overrides
 
@@ -49,7 +53,7 @@ Error.constructor
 
 #### Defined in
 
-[src/index.ts:15](https://github.com/FirebaseExtended/reactfire/blob/main/src/index.ts#L15)
+[src/index.ts:15](https://github.com/HCSTechnologies/reactfire/blob/main/src/index.ts#L15)
 
 ## Properties
 
@@ -73,17 +77,17 @@ ___
 
 #### Defined in
 
-[src/index.ts:15](https://github.com/FirebaseExtended/reactfire/blob/main/src/index.ts#L15)
+[src/index.ts:15](https://github.com/HCSTechnologies/reactfire/blob/main/src/index.ts#L15)
 
 ___
 
 ### customData
 
-• `Optional` **customData**: `Record`<`string`, `unknown`\>
+• `Optional` **customData**: `Record`\<`string`, `unknown`\>
 
 #### Defined in
 
-[src/index.ts:15](https://github.com/FirebaseExtended/reactfire/blob/main/src/index.ts#L15)
+[src/index.ts:15](https://github.com/HCSTechnologies/reactfire/blob/main/src/index.ts#L15)
 
 ___
 
@@ -97,7 +101,7 @@ Error.message
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1068
+node_modules/typescript/lib/lib.es5.d.ts:1076
 
 ___
 
@@ -111,7 +115,7 @@ Error.name
 
 #### Defined in
 
-[src/index.ts:13](https://github.com/FirebaseExtended/reactfire/blob/main/src/index.ts#L13)
+[src/index.ts:13](https://github.com/HCSTechnologies/reactfire/blob/main/src/index.ts#L13)
 
 ___
 
@@ -125,7 +129,7 @@ Error.stack
 
 #### Defined in
 
-node_modules/typescript/lib/lib.es5.d.ts:1069
+node_modules/typescript/lib/lib.es5.d.ts:1077
 
 ___
 
@@ -139,10 +143,6 @@ ___
 
 Optional override for formatting stack traces
 
-**`See`**
-
-https://v8.dev/docs/stack-trace-api#customizing-stack-traces
-
 ##### Parameters
 
 | Name | Type |
@@ -153,6 +153,10 @@ https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 ##### Returns
 
 `any`
+
+**`See`**
+
+https://v8.dev/docs/stack-trace-api#customizing-stack-traces
 
 #### Inherited from
 
@@ -180,7 +184,7 @@ node_modules/@types/node/globals.d.ts:13
 
 ### captureStackTrace
 
-▸ `Static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
+▸ **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
 Create .stack property on a target object
 

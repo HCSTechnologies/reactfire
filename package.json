@@ -1,5 +1,5 @@
 {
-  "version": "7.0.1",
+  "version": "7.0.2",
   "license": "MIT",
   "type": "module",
   "main": "dist/index.umd.cjs",
@@ -36,7 +36,7 @@
     "docs:fork": "typedoc --options typedoc.json --gitRemote upstream && markdown-toc -i docs/use.md"
   },
   "peerDependencies": {
-    "firebase": "^9.0.0 || ^10.3.0",
+    "firebase": "^9.0.0 || ^10.3.0 || ^11.0.0",
     "react": ">=16 || experimental"
   },
   "husky": {
@@ -48,16 +48,16 @@
     "singleQuote": true,
     "printWidth": 160
   },
-  "name": "@hcstechnologies/reactfire",
-  "author": "jhuleatt",
-  "description": "Firebase library for React",
+  "name": "hcsreactfire",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://registry.npmjs.org/"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://hodeyp@github.com/HCSTechnologies/reactfire.git"
   },
+  "author": "jhuleatt",
+  "description": "Firebase library for React",
   "bugs": {
     "url": "https://github.com/Firebase/reactfire/issues"
   },
