@@ -1,3 +1,9 @@
+# HCS React Fire
+
+`npm run build`
+`npm publish`
+
+
 # ReactFire
 
 Hooks, Context Providers, and Components that make it easy to interact with
