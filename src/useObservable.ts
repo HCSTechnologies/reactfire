@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useSyncExternalStore } from 'use-sync-external-store/shim';
+import { useSyncExternalStore, useCallback } from 'react';
 import { Observable } from 'rxjs';
 import { SuspenseSubject } from './SuspenseSubject';
 import { useSuspenseEnabledFromConfigAndContext } from './firebaseApp';
@@ -8,10 +7,11 @@ import { ReactFireGlobals, ReactFireOptions } from './';
 const DEFAULT_TIMEOUT = 30_000;
 
 // Since we're side-effect free, we need to ensure our observable cache is global
-const preloadedObservables: Map<string, SuspenseSubject<any>> = (globalThis as any as ReactFireGlobals)._reactFirePreloadedObservables || new Map();
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const preloadedObservables: Map<string, SuspenseSubject<any>> = (globalThis as unknown as ReactFireGlobals)._reactFirePreloadedObservables || new Map();
 
-if (!(globalThis as any as ReactFireGlobals)._reactFirePreloadedObservables) {
-  (globalThis as any as ReactFireGlobals)._reactFirePreloadedObservables = preloadedObservables;
+if (!(globalThis as unknown as ReactFireGlobals)._reactFirePreloadedObservables) {
+  (globalThis as unknown as ReactFireGlobals)._reactFirePreloadedObservables = preloadedObservables;
 }
 
 // Starts listening to an Observable.
@@ -94,32 +94,33 @@ export function useObservable<T = unknown>(observableId: string, source: Observa
   const observable = preloadObservable(source, observableId, suspenseEnabled);
 
   // Suspend if suspense is enabled and no initial data exists
+  // eslint-disable-next-line no-prototype-builtins
   const hasInitialData = config.hasOwnProperty('initialData') || config.hasOwnProperty('startWithValue');
   const hasData = observable.hasValue || hasInitialData;
   if (suspenseEnabled === true && !hasData) {
     throw observable.firstEmission;
   }
 
-  const subscribe = React.useCallback((onStoreChange: () => void) => {
-      const subscription = observable.subscribe({
-        next: () => {
-          onStoreChange();
-        },
-        error: (e) => {
-          onStoreChange();
-          throw e;
-        },
-        complete: () => {
-          onStoreChange();
-        },
-      });
+  const subscribe = useCallback((onStoreChange: () => void) => {
+    const subscription = observable.subscribe({
+      next: () => {
+        onStoreChange();
+      },
+      error: (e) => {
+        onStoreChange();
+        throw e;
+      },
+      complete: () => {
+        onStoreChange();
+      },
+    });
 
-      return () => {
-        subscription.unsubscribe();
-      }
+    return () => {
+      subscription.unsubscribe();
+    }
   }, [observable])
 
-  const getSnapshot = React.useCallback<() => ObservableStatus<T>>(() => {
+  const getSnapshot = useCallback<() => ObservableStatus<T>>(() => {
     return observable.immutableStatus;
   }, [observable]);
 
