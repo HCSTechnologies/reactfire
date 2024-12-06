@@ -124,7 +124,7 @@ export function useObservable<T = unknown>(observableId: string, source: Observa
     return observable.immutableStatus;
   }, [observable]);
 
-  const getServerSnapshot = (): ObservableStatus<T> => {
+  const getServerSnapshot = useCallback((): ObservableStatus<T> => {
     return {
       status: 'loading',
       hasEmitted: false,
@@ -133,7 +133,7 @@ export function useObservable<T = unknown>(observableId: string, source: Observa
       error: undefined,
       firstValuePromise: Promise.resolve(),
     }
-  }
+  }, []);
 
   const update = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
