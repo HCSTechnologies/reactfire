@@ -124,7 +124,18 @@ export function useObservable<T = unknown>(observableId: string, source: Observa
     return observable.immutableStatus;
   }, [observable]);
 
-  const update = useSyncExternalStore(subscribe, getSnapshot);
+  const getServerSnapshot = (): ObservableStatus<T> => {
+    return {
+      status: 'loading',
+      hasEmitted: false,
+      isComplete: false,
+      data: undefined,
+      error: undefined,
+      firstValuePromise: Promise.resolve(),
+    }
+  }
+
+  const update = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   // modify the value if initialData exists
   if (!observable.hasValue && hasData) {
