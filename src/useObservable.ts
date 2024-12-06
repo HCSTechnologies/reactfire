@@ -83,6 +83,16 @@ export interface ObservableStatusLoading<T> extends ObservableStatusBase<T> {
 
 export type ObservableStatus<T> = ObservableStatusLoading<T> | ObservableStatusError<T> | ObservableStatusSuccess<T>;
 
+const serverSnap: ObservableStatus<unknown> = {
+  status: 'loading',
+  hasEmitted: false,
+  isComplete: false,
+  data: undefined,
+  error: undefined,
+  firstValuePromise: Promise.resolve(),
+};
+
+
 export function useObservable<T = unknown>(observableId: string, source: Observable<T>, config: ReactFireOptions = {}): ObservableStatus<T> {
   if (!observableId) {
     throw new Error('cannot call useObservable without an observableId');
@@ -125,14 +135,7 @@ export function useObservable<T = unknown>(observableId: string, source: Observa
   }, [observable]);
 
   const getServerSnapshot = useCallback((): ObservableStatus<T> => {
-    return {
-      status: 'loading',
-      hasEmitted: false,
-      isComplete: false,
-      data: undefined,
-      error: undefined,
-      firstValuePromise: Promise.resolve(),
-    }
+    return serverSnap;
   }, []);
 
   const update = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
